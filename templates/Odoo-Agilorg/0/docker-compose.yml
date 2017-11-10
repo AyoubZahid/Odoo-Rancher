@@ -1,7 +1,7 @@
 version: '2'
 services:
   odoo:
-    image: odoo:10.0
+    image: odoo:${VERSION}
     environment:
       PGHOST: db
       PGPASSWORD: odoo
@@ -13,7 +13,7 @@ services:
     volumes_from:
     - odoo-data
     ports:
-    - 8069:8069/tcp
+    - ${PORT}:8069/tcp
     labels:
       io.rancher.container.pull_image: always
       io.rancher.sidekicks: odoo-data
@@ -33,7 +33,7 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.container.start_once: 'true'
   odoo-data:
-    image: odoo:10.0
+    image: odoo:${VERSION}
     environment:
       PGHOST: db
       PGPASSWORD: odoo
