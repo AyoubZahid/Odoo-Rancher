@@ -1,3 +1,20 @@
+.catalog:
+    name: "Odoo-Agilorg"
+    version: "10.0"
+    description: "Odoo"
+    minimum_rancher_version: v1.0.0
+    questions:
+     - variable: "PORT"
+       description: "Port sur lequel odoo sera exposé"
+       label: "Odoo Port"
+       required: true
+       type: "string"
+     - variable: "ENTERPRISE"
+       description: "Activé l'edition entreprise"
+       label: "Edition Enterprise"
+       required: false
+       type: "boolean" 
+ 
 version: '2'
 services:
   odoo:
