@@ -6,7 +6,7 @@
     questions:
      - variable: "VERSION"
        description: "Version d'odoo 9.0/10.0"
-       label: "Odoo Port"
+       label: "Version Odoo"
        required: true
        type: "string"    
      - variable: "PORT"
