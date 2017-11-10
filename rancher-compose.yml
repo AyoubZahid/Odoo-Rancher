@@ -4,6 +4,11 @@
     description: "Odoo"
     minimum_rancher_version: v1.0.0
     questions:
+     - variable: "VERSION"
+       description: "Version d'odoo 9.0/10.0"
+       label: "Odoo Port"
+       required: true
+       type: "string"    
      - variable: "PORT"
        description: "Port sur lequel odoo sera exposé"
        label: "Odoo Port"
