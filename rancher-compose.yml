@@ -1,0 +1,14 @@
+version: '2'
+services:
+  odoo:
+    scale: 1
+    start_on_create: true
+  db-data:
+    scale: 1
+    start_on_create: true
+  odoo-data:
+    scale: 1
+    start_on_create: true
+  db:
+    scale: 1
+    start_on_create: true
