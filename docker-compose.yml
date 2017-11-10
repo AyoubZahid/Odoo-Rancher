@@ -1,0 +1,65 @@
+version: '2'
+services:
+  odoo:
+    image: odoo:10.0
+    environment:
+      PGHOST: db
+      PGPASSWORD: odoo
+      PGUSER: odoo
+    stdin_open: true
+    tty: true
+    links:
+    - db:db
+    volumes_from:
+    - odoo-data
+    ports:
+    - 8069:8069/tcp
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: odoo-data
+  db-data:
+    image: postgres:9.4
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: odoo
+      POSTGRES_USER: odoo
+    stdin_open: true
+    volumes:
+    - /stacks/{{ .Stack.Name }}/pgdata:/var/lib/postgresql/data/pgdata
+    tty: true
+    command:
+    - /bin/true
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: 'true'
+  odoo-data:
+    image: odoo:10.0
+    environment:
+      PGHOST: db
+      PGPASSWORD: odoo
+      PGUSER: odoo
+    stdin_open: true
+    volumes:
+    - /stacks/{{ .Stack.Name }}/addons:/mnt/extra-addons
+    - /stacks/{{ .Stack.Name }}/config:/etc/odoo
+    tty: true
+    links:
+    - db:db
+    command:
+    - /bin/true
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: 'true'
+  db:
+    image: postgres:9.4
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    stdin_open: true
+    tty: true
+    volumes_from:
+    - db-data
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: db-data
